@@ -20,12 +20,10 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
-  const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
-      setScrollY(window.scrollY)
 
       // Check which section is currently in view
       const sections = ["home", "devs", "issue", "recommendations", "sources"]
@@ -83,101 +81,6 @@ export default function Home() {
     moderate: { label: "Moderate Poverty", color: "hsl(38 92% 50%)" }, // Orange/Amber
     resilience: { label: "Resilience Target", color: "hsl(142 76% 36%)" }, // Green
   }
-
-  const issueIndicators = [
-    {
-      label: "Extreme poverty rate",
-      value: "16.4%",
-      context: "Projected 2024 baseline (National Socioeconomic Pulse)",
-    },
-    {
-      label: "Households skipping meals",
-      value: "28%",
-      context: "Nutrition stress test (HealthEquity Lab)",
-    },
-    {
-      label: "Students at risk of dropout",
-      value: "1.3M",
-      context: "Education access model (CivicWell Insights)",
-    },
-    {
-      label: "Urban hardship gap",
-      value: "6.4 pts",
-      context: "MetroPulse vulnerability model",
-    },
-  ]
-
-  const analysisViewpoints = [
-    {
-      title: "Economic resilience modeling (Dummy)",
-      bullets: [
-        {
-          title: "Extreme poverty plateau",
-          detail: "Dummy macro model shows the extreme-poverty index fluctuating between 16–19% despite steady GDP growth.",
-        },
-        {
-          title: "Typhoon volatility load",
-          detail: "Each simulated typhoon season adds ±1.2 pts to poverty metrics, delaying recovery by 11–13 months.",
-        },
-      ],
-    },
-    {
-      title: "Household welfare lens (Dummy)",
-      bullets: [
-        {
-          title: "Meal-skipping households",
-          detail: "Nutrition stress test indicates 28% of surveyed families cut meals at least twice a week to manage inflation.",
-        },
-        {
-          title: "Care burden",
-          detail: "HealthEquity’s welfare model records 54% delaying treatment because of upfront fees and travel costs.",
-        },
-      ],
-    },
-    {
-      title: "Education opportunity gap (Dummy)",
-      bullets: [
-        {
-          title: "At-risk students",
-          detail: "CivicWell’s access simulation counts 1.3M learners at risk of dropout when tuition shocks exceed ₱2,000.",
-        },
-        {
-          title: "Infrastructure lag",
-          detail: "Only 58% of rural secondary schools in the dummy dataset have stable internet, limiting blended learning.",
-        },
-      ],
-    },
-  ]
-
-  const solutionPlaybooks = [
-    {
-      title: "Shock-ready safety nets (Dummy)",
-      summary: "Pilot dynamic cash transfers that trigger when rainfall, inflation, or fuel thresholds are breached.",
-      bullets: [
-        { label: "Voucher surge", detail: "Deploy ₱1.2B worth of digital vouchers to 600k high-risk households." },
-        { label: "Data triggers", detail: "Link payouts to MetroPulse early-warning data for typhoons and floods." },
-        { label: "Market monitoring", detail: "Pair transfers with price dashboards for LGUs to watch staple price spikes." },
-      ],
-    },
-    {
-      title: "Learning continuity pods (Dummy)",
-      summary: "Design satellite classrooms and device libraries that travel with displaced learners.",
-      bullets: [
-        { label: "Mobile pods", detail: "Equip 150 pods with Starlink-grade connectivity for rural barangays." },
-        { label: "Device pools", detail: "Provide 45k tablets with cached curriculum content." },
-        { label: "Mentor corps", detail: "Train community mentors through a 6-week CivicWell coaching sprint." },
-      ],
-    },
-    {
-      title: "Community health taskers (Dummy)",
-      summary: "Deploy volunteer brigades that combine telehealth triage with nutrition support.",
-      bullets: [
-        { label: "Rapid roster", detail: "Recruit 8k taskers for door-to-door wellness checks during heat waves." },
-        { label: "Food pairing", detail: "Bundle fortified staples with each visit to combat meal skipping." },
-        { label: "Telemetry", detail: "Use HealthEquity dashboards to flag medicine shortages in real time." },
-      ],
-    },
-  ]
 
   const sourceEntries = [
     {
@@ -304,8 +207,6 @@ export default function Home() {
   
     const blackinteractiveCardClasses =
     "group relative bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-white/30 hover:bg-white/10 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
-  const compactInteractiveCardClasses =
-    "group rounded-xl border border-white/15 bg-black/40 p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-white/40 hover:bg-black/60 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
   const listCardClasses =
     "group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 space-y-3 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-white/30 hover:bg-white/10 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
 
