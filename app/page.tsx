@@ -15,7 +15,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Line, LineChart, CartesianGrid, XAxis, YAxis, Bar, BarChart } from "recharts"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -109,44 +109,46 @@ export default function Home() {
     { year: "2029", baseline: 17.7, withInterventions: 10.0, target: 9.5 },
   ]
 
-  const recommendationChartConfig = {
-    baseline: { label: "Baseline Projection", color: "hsl(0 84% 60%)" }, // Red
-    withInterventions: { label: "With Interventions", color: "hsl(142 76% 36%)" }, // Green
-    target: { label: "Target Goal", color: "hsl(217 91% 60%)" }, // Blue
+  const priorityData = [
+    { policy: "Improve agriculture & food production", priority: 35 },
+    { policy: "Increase minimum wage / living wage", priority: 25 },
+    { policy: "Expand social protection (4Ps, subsidies)", priority: 20 },
+    { policy: "Skills training & job programs", priority: 10 },
+    { policy: "Price monitoring & anti-profiteering", priority: 10 },
+  ]
+
+  const priorityChartConfig = {
+    priority: { label: "Priority (%)", color: "hsl(142 76% 36%)" }, // Green
   }
 
   const sourceEntries = [
     {
-      title: "National Socioeconomic Pulse – Poverty Baseline 2024 (Dummy)",
-      description: "Synthetic longitudinal dataset powering the poverty trend chart.",
+      title: "Philippine Statistics Authority. (2023). Poverty incidence among Filipinos.",
+      description: "https://psa.gov.ph",
     },
     {
-      title: "MetroPulse Analytics – Urban Vulnerability Model (Dummy)",
-      description: "Hypothetical scoring model for urban–rural hardship gaps.",
+      title: "Philippine Statistics Authority. (2024–2025). Inflation reports and updates.",
+      description: "https://psa.gov.ph",
     },
     {
-      title: "CivicWell Insights – Education Access Simulation (Dummy)",
-      description: "Modeled dropout and completion rates for secondary learners.",
+      title: "Social Weather Stations. (2025). Self-rated poverty survey results.",
+      description: "https://www.sws.org.ph",
     },
     {
-      title: "HealthEquity Lab – Welfare Stress Test (Dummy)",
-      description: "Simulated nutrition and healthcare affordability indicators.",
+      title: "BusinessWorld. (2025). Inflation holds steady at 1.7%.",
+      description: "",
     },
     {
-      title: "CommunityConnect Survey – Social Resilience 2024 (Dummy)",
-      description: "Composite view of social safety-net uptake and labor precarity.",
+      title: "RateInflation.com. (2025). Philippines historical inflation rate.",
+      description: "",
     },
     {
-      title: "Adaptive Cash Transfer Lab – Shock Response Notes (Dummy)",
-      description: "Scenario design for rainfall-triggered voucher deployment across flood-prone provinces.",
+      title: "Department of Finance. (2024–2025). Economic updates and inflation drivers.",
+      description: "https://dof.gov.ph",
     },
     {
-      title: "Learning Continuity Pods Playbook (Dummy)",
-      description: "Prototype blueprint for mobile classrooms with blended instruction kits.",
-    },
-    {
-      title: "Health Tasker Telemetry Brief (Dummy)",
-      description: "Generated dataset tracking volunteer wellness visits and nutrition packs delivered.",
+      title: "World Bank. (2024). Philippines Economic Update.",
+      description: "https://worldbank.org",
     },
   ]
 
@@ -490,7 +492,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.75 }}
               className="mx-auto mb-12 max-w-2xl text-sm sm:text-base md:text-base text-muted-foreground/90 leading-relaxed"
             >
-              Poverty remains one of the most urgent issues in the Philippines. The challenge has intensified because of inflation—the steady rise of prices of basic goods such as food, transportation, fuel, and utilities. Millions of Filipinos feel the impact, especially those with low and fixed incomes.
+              Poverty remains one of the most urgent issues in the Philippines. The challenge has intensified because of <strong className="text-white/80">inflation</strong>—the steady rise of prices of basic goods such as <strong className="text-white/80">food, transportation, fuel, and utilities</strong>. Millions of Filipinos feel the impact, especially those with <strong className="text-white/80">low and fixed incomes</strong>.
             </motion.p>
 
             <motion.div  
@@ -768,12 +770,12 @@ export default function Home() {
           <div className="space-y-12">
             {/* Understanding Poverty Section */}
             <div className={blackinteractiveCardClasses}>
-              <h3 className="text-2xl font-semibold text-white mb-4">1. Understanding Poverty in the Philippines</h3>
+              <h3 className="text-2xl font-semibold text-white mb-4">Understanding Poverty in the Philippines</h3>
               <p className="text-white/80 mb-4 leading-relaxed">
                 Poverty means the inability of individuals or families to meet basic needs such as food, shelter, healthcare, and education.
               </p>
               <p className="text-white/80 leading-relaxed">
-                As of 2023, <strong className="text-white">18.1% of Filipinos—around 19 million people—live below the poverty line</strong>. Despite improvements, many families remain vulnerable due to high living costs.
+                As of 2023, <strong className="text-white/80">18.1% of Filipinos—around 19 million people—live below the poverty line</strong>. Despite improvements, many families remain vulnerable due to high living costs.
               </p>
             </div>
 
@@ -805,7 +807,7 @@ export default function Home() {
                 </div>
 
                 <p className="mt-4 text-sm text-white/70">
-                  The poverty rate steadily decreased from 2018 to 2021, but improvement slowed afterward. The 2025 value represents the national government's target of lowering poverty to 13.2%. However, rising inflation threatens this goal by increasing the cost of basic goods and services.
+                  The poverty rate steadily decreased from 2018 to 2021, but improvement slowed afterward. The 2025 value represents the national government's target of lowering poverty to <strong className="text-white/80">13.2%</strong>. However, <strong className="text-white/80">rising inflation</strong> threatens this goal by increasing the cost of basic goods and services.
                 </p>
               </div>
 
@@ -836,16 +838,16 @@ export default function Home() {
                 </div>
 
                 <p className="mt-4 text-sm text-white/70">
-                  Inflation significantly decreased from 2023 to 2025, yet vulnerable families still felt its effects because essential items like rice, vegetables, and transportation continued to increase in price. Even with lower national inflation, everyday expenses remained high for millions of Filipinos.
+                  Inflation significantly decreased from <strong className="text-white/80">6.0% in 2023</strong> to <strong className="text-white/80">1.7% in 2025</strong>, yet vulnerable families still felt its effects because essential items like <strong className="text-white/80">rice, vegetables, and transportation</strong> continued to increase in price. Even with lower national inflation, everyday expenses remained high for millions of Filipinos.
                 </p>
               </div>
             </div>
 
             {/* How Inflation Worsens Poverty Section */}
             <div className={blackinteractiveCardClasses}>
-              <h3 className="text-2xl font-semibold text-white mb-4">2. How Inflation Worsens Poverty</h3>
+              <h3 className="text-2xl font-semibold text-white mb-4">How Inflation Worsens Poverty</h3>
               <p className="text-white/80 mb-4 leading-relaxed">
-                Inflation reduces the purchasing power of Filipino families. When prices rise faster than income, poor households suffer the most.
+                <strong className="text-white/80">Inflation reduces the purchasing power</strong> of Filipino families. When prices rise faster than income, <strong className="text-white/80">poor households suffer the most</strong>.
               </p>
               <h4 className="text-lg font-semibold text-white mt-6 mb-3">Impacts of Inflation on Low-Income Families:</h4>
               <ul className="space-y-2 text-white/80">
@@ -873,59 +875,97 @@ export default function Home() {
             </div>
 
             {/* Different Viewpoints Section */}
-            <div className={blackinteractiveCardClasses}>
-              <h3 className="text-2xl font-semibold text-white mb-6">3. Different Viewpoints</h3>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className={listCardClasses}>
-                  <h4 className="text-lg font-bold text-foreground mb-4">Government Perspective</h4>
-                  <ul className="space-y-3 text-muted-foreground text-sm">
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Inflation was driven by global oil prices, El Niño, and supply-chain disruptions.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Programs such as 4Ps, rice price caps, cash subsidies, and food security measures aim to protect poor families.</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Government Perspective</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Inflation was driven by <strong className="text-white/80">global oil prices, El Niño, and supply-chain disruptions</strong>.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Programs such as <strong className="text-white/80">4Ps</strong>, <strong className="text-white/80">rice price caps</strong>, <strong className="text-white/80">cash subsidies</strong>, and <strong className="text-white/80">food security measures</strong> aim to protect poor families.</span>
+                  </li>
+                </ul>
+              </div>
 
-                <div className={listCardClasses}>
-                  <h4 className="text-lg font-bold text-foreground mb-4">Economic Experts' Perspective</h4>
-                  <ul className="space-y-3 text-muted-foreground text-sm">
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Inflation is worsened by low agricultural productivity.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Dependence on food imports increases vulnerability to global price shocks.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Long-term solutions require strengthening local agriculture and adjusting wages.</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Economic Experts' Perspective</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Inflation is worsened by <strong className="text-white/80">low agricultural productivity</strong>.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span><strong className="text-white/80">Dependence on food imports</strong> increases vulnerability to <strong className="text-white/80">global price shocks</strong>.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Long-term solutions require <strong className="text-white/80">strengthening local agriculture</strong> and <strong className="text-white/80">adjusting wages</strong>.</span>
+                  </li>
+                </ul>
+              </div>
 
-                <div className={listCardClasses}>
-                  <h4 className="text-lg font-bold text-foreground mb-4">Citizens' Perspective</h4>
-                  <ul className="space-y-3 text-muted-foreground text-sm">
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Majority of Filipinos feel that their income is not enough due to price increases.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span><strong>55% of families self-rated themselves as poor in 2025</strong> (SWS).</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>Families report skipping meals, taking multiple jobs, or borrowing money just to survive.</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Citizens' Perspective</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Majority of Filipinos feel that their income is not enough due to price increases.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span><strong>55% of families self-rated themselves as poor in 2025</strong> (SWS).</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Families report skipping meals, taking multiple jobs, or borrowing money just to survive.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Agricultural Challenges</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Low productivity in local farming affects food security and prices.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Climate change impacts like <strong className="text-white/80">El Niño</strong> reduce crop yields.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Social Safety Nets</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span><strong className="text-white/80">4Ps (Pantawid Pamilyang Pilipino Program)</strong> provides conditional cash transfers to poor families.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span><strong className="text-white/80">Rice price caps</strong> and <strong className="text-white/80">subsidies</strong> help stabilize food costs for vulnerable households.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={listCardClasses}>
+                <h4 className="text-lg font-bold text-foreground mb-4">Daily Struggles</h4>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Many families skip meals to cope with rising food prices.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-white font-bold">•</span>
+                    <span>Workers take on multiple jobs or borrow money to make ends meet.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -952,125 +992,155 @@ export default function Home() {
               </button>
             </div>
             <h2 className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-4xl font-semibold tracking-tighter text-transparent md:text-[54px] md:leading-[60px] relative z-10">
-              Actionable Recommendations
+              Priority Solutions for Reducing Poverty (2025 Strategy)
             </h2>
 
             <p className="mt-5 relative z-10 text-center text-lg text-white/85">
-              Propose viable solutions that communities, institutions, and policymakers can activate right away.
+              Recommended actions aligned with the 2025 poverty reduction target.
             </p>
           </div>
 
-          {/* Impact Projection Chart */}
+          {/* Priority Chart */}
           <div className="mb-16 max-w-6xl mx-auto">
             <div className={blackinteractiveCardClasses}>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">Projected Impact</p>
-                  <h3 className="text-2xl font-semibold text-white mt-1">Expected Poverty Reduction with Interventions</h3>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">Policy Priorities</p>
+                  <h3 className="text-2xl font-semibold text-white mt-1">Priority Solutions for Reducing Poverty</h3>
                 </div>
-                <span className="text-sm text-white/60">Projection: 2024–2029</span>
+                <span className="text-sm text-white/60">2025 Strategy</span>
               </div>
 
               <div className="mt-6">
                 <ChartContainer
-                  config={recommendationChartConfig}
+                  config={priorityChartConfig}
                   className="h-[400px] w-full rounded-2xl border border-white/10 bg-black/40 p-4"
                 >
-                  <LineChart data={recommendationImpactData}>
-                    <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
-                    <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
-                    <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                  <BarChart data={priorityData} layout="vertical">
+                    <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" horizontal={true} vertical={false} />
+                    <XAxis type="number" stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                    <YAxis dataKey="policy" type="category" stroke="#d4d4d8" tickLine={false} axisLine={false} width={200} />
                     <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
                     <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
-                    <Line type="monotone" dataKey="baseline" stroke="var(--color-baseline)" strokeWidth={3} dot={false} />
-                    <Line type="monotone" dataKey="withInterventions" stroke="var(--color-withInterventions)" strokeWidth={3} dot={false} />
-                    <Line
-                      type="monotone"
-                      dataKey="target"
-                      stroke="var(--color-target)"
-                      strokeDasharray="6 4"
-                      strokeWidth={2.5}
-                      dot={false}
-                    />
-                  </LineChart>
+                    <Bar dataKey="priority" fill="var(--color-priority)" radius={[0, 4, 4, 0]} />
+                  </BarChart>
                 </ChartContainer>
               </div>
 
               <p className="mt-4 text-sm text-white/70">
-                This projection shows the expected impact of implementing all recommended interventions. The baseline projection (red) represents the current trajectory without intervention, while the green line shows the projected reduction with full implementation of recommendations. The blue dashed line represents the target goal.
+                These priorities reflect our group's assessment aligned with the <strong className="text-white/80">2025 poverty reduction target</strong>. <strong className="text-white/80">Strengthening agriculture ranks highest (35%)</strong> because cheaper food directly reduces inflation and ensures food security for poor families.
               </p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {[
-              {
-                title: "Economic Development",
-                points: [
-                  "Create job training programs in rural communities",
-                  "Support small business entrepreneurs with microfinance",
-                  "Implement fair wage policies across industries",
-                  "Develop infrastructure in underserved regions",
-                ],
-              },
-              {
-                title: "Education Initiatives",
-                points: [
-                  "Expand access to quality education nationwide",
-                  "Provide scholarships and financial assistance",
-                  "Improve school infrastructure and resources",
-                  "Offer vocational training programs",
-                ],
-              },
-              {
-                title: "Healthcare Solutions",
-                points: [
-                  "Establish affordable healthcare centers",
-                  "Distribute free medications and vaccines",
-                  "Improve maternal and child health services",
-                  "Address malnutrition through nutrition programs",
-                ],
-              },
-              {
-                title: "Social Support",
-                points: [
-                  "Strengthen social safety nets",
-                  "Combat child labor through enforcement",
-                  "Promote women's economic empowerment",
-                  "Support vulnerable populations",
-                ],
-              },
-              {
-                title: "Policy & Governance",
-                points: [
-                  "Enact progressive taxation policies",
-                  "Improve anti-corruption measures",
-                  "Strengthen labor law enforcement",
-                  "Promote transparent government",
-                ],
-              },
-              {
-                title: "Community Engagement",
-                points: [
-                  "Empower local communities in decision-making",
-                  "Support community-based organizations",
-                  "Encourage civic participation",
-                  "Foster inter-agency collaboration",
-                ],
-              },
-            ].map((rec, idx) => (
-              <div key={idx} className={`${interactiveCardClasses}`}>
-                <h3 className="text-lg font-bold text-foreground mb-4">{rec.title}</h3>
+          <div className="space-y-6 max-w-6xl mx-auto">
+           
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">1. Strengthen Agricultural Production</h3>
                 <ul className="space-y-2">
-                  {rec.points.map((point, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
-                      <span className="text-white font-bold">✓</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Invest in irrigation, machinery, and post-harvest technology.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Reduce dependency on imported food.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Provide subsidies and technical support to local farmers.</span>
+                  </li>
                 </ul>
               </div>
-            ))}
+
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">2. Implement Livable Wage Policies</h3>
+                <ul className="space-y-2">
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Adjust minimum wage to match inflation.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Ensure workers receive fair compensation.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Support MSMEs so they can afford wage increases without closing down.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">3. Improve Social Protection Programs</h3>
+                <ul className="space-y-2">
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Enhance and digitize 4Ps distribution.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Provide targeted cash assistance.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Strengthen PhilHealth and affordable healthcare.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">4. Expand Skills Training & Employment Programs</h3>
+                <ul className="space-y-2">
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Offer free government-run training for high-demand skills.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Provide job-matching platforms for youth.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">5. Strengthen Price Monitoring</h3>
+                <ul className="space-y-2">
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Prevent hoarding and overpricing of goods.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Enforce anti-profiteering laws more strictly.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Improve supply chain logistics.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className={interactiveCardClasses}>
+                <h3 className="text-lg font-bold text-foreground mb-4">6. Enhance Infrastructure & Access</h3>
+                <ul className="space-y-2">
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Improve rural infrastructure and transportation networks.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Expand access to clean water and sanitation facilities.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+                    <span className="text-white font-bold">✓</span>
+                    <span>Develop digital infrastructure for remote areas.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -1099,10 +1169,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-5 relative z-10 text-center text-lg text-white/85">
-              Properly cite every credible (even if dummy) dataset that feeds the insights and solutions above.
-            </p>
-            <p className="mt-2 text-center text-sm text-white/60">
-              Every dummy dataset below is cited so readers can trace which charts, insights, and solutions they power.
+              References and sources used in this analysis of poverty and inflation in the Philippines.
             </p>
           </div>
 
@@ -1112,7 +1179,16 @@ export default function Home() {
                 <span className="text-white font-bold text-lg flex-shrink-0 pt-0.5">{idx + 1}.</span>
                 <div className="flex-1">
                   <p className="text-foreground font-medium">{source.title}</p>
-                  <p className="text-sm text-muted-foreground mt-2">{source.description}</p>
+                  {source.description && (
+                    <a 
+                      href={source.description.startsWith('http') ? source.description : `https://${source.description}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground mt-2 hover:text-white transition-colors duration-300 cursor-pointer underline underline-offset-2 hover:underline-offset-4 inline-block"
+                    >
+                      {source.description}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
