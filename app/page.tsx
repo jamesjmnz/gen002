@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { Marquee } from "@/components/magicui/marquee"
+import { InitialLoading } from "@/components/initial-loading"
 import kenneth from "@/public/kenneth.png"
 import james from "@/public/james.png"
 
@@ -17,9 +18,19 @@ import {
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
+
+  useEffect(() => {
+    // Hide loading screen after progress reaches 100% plus a small delay
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 3500) // Wait for counter to reach 100% (about 3s) + fade out time
+
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -228,7 +239,14 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen w-full relative bg-black">
+    <>
+      {isLoading && <InitialLoading />}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="min-h-screen w-full relative bg-black"
+      >
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -254,7 +272,10 @@ export default function Home() {
       />
 
       {/* Desktop Header */}
-      <header
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? -20 : 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
         className={`sticky top-4 z-[9999] mx-auto hidden w-full flex-row items-center justify-between self-start rounded-full bg-background/80 md:flex backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 ${
           isScrolled ? "max-w-3xl px-2 shadow-2xl border-white/20" : "max-w-5xl px-4"
         } py-2`}
@@ -290,10 +311,15 @@ export default function Home() {
         </nav>
 
         <div className="flex items-center gap-4"></div>
-      </header>
+      </motion.header>
 
       {/* Mobile Header */}
-      <header className="sticky top-4 z-[9999] mx-4 flex w-auto flex-row items-center justify-between rounded-full bg-background/80 backdrop-blur-md border border-white/10 shadow-lg md:hidden px-4 py-3 transition-all duration-300">
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? -20 : 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="sticky top-4 z-[9999] mx-4 flex w-auto flex-row items-center justify-between rounded-full bg-background/80 backdrop-blur-md border border-white/10 shadow-lg md:hidden px-4 py-3 transition-all duration-300"
+      >
         <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")} className="flex items-center justify-center gap-2 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center font-bold text-black text-sm">
             P
@@ -316,7 +342,7 @@ export default function Home() {
             ></span>
           </div>
         </button>
-      </header>
+      </motion.header>
 
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm md:hidden animate-in fade-in duration-300">
@@ -360,8 +386,8 @@ export default function Home() {
           <div className="mx-auto max-w-4xl text-center flex-1 flex flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="mb-8"
             >
               <Badge variant="default" className="inline-flex bg-white/80 items-center gap-2 px-4 py-2 text-sm">
@@ -372,8 +398,8 @@ export default function Home() {
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="mb-8"
             >
               <h1 id="main-title"className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-4xl font-semibold tracking-tighter text-transparent md:text-[54px] md:leading-[60px] lg:text-7xl sm:text-6xl relative z-10">
@@ -383,8 +409,8 @@ export default function Home() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
               className="mx-auto mb-12 max-w-xl text-xl text-muted-foreground"
             >
               A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and
@@ -393,8 +419,8 @@ export default function Home() {
 
             <motion.div  
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }} 
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }} 
               className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 md:gap-8 mt-8"
             >
               {homeStats.map((h, index) => (
@@ -402,7 +428,7 @@ export default function Home() {
                   <p className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] drop-shadow-[0_0_32px_rgba(255,255,255,0.3)]">
                     {h.numerical}
                   </p>
-                  <p className="text-sm text-center sm:text-base text-muted-foreground mt-3 sm:mt-4 px-4 sm:px-0">
+                  <p className="text-sm text-center sm:text-base text-muted-foreground mt-3 sm:mt-1 px-4 sm:px-0">
                     {h.data}
                   </p>
                 </div>
@@ -413,8 +439,8 @@ export default function Home() {
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-col items-center gap-6"
             >
               <svg
@@ -474,16 +500,27 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-full bg-gradient-to-b from-transparent to-background/50 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="w-full bg-gradient-to-b from-transparent to-background/50 py-16"
+        >
           <div className="container mx-auto px-4">
-            <h2 className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-6xl font-semibold tracking-tighter text-transparent md:text-6xl md:leading-[60px] relative z-10">The Reality of Poverty</h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+              className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-6xl font-semibold tracking-tighter text-transparent md:text-6xl md:leading-[60px] relative z-10"
+            >
+              The Reality of Poverty
+            </motion.h2>
             <div className="my-16 flex max-h-[800px] justify-center gap-8 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] group">
               {/* First column */}
               <div>
                 <Marquee
-                  pauseOnHover
                   vertical
-                  className="[--duration:20s] group-hover:[--duration:60s] transition-all duration-500"
+                  className="[--duration:20s]"
                 >
                   {[
                     "/poverty-situation-philippines-families.jpg",
@@ -491,11 +528,11 @@ export default function Home() {
                     "/poverty-philippines-community-struggle.jpg",
                     "/poverty-philippines-women-empowerment.jpg",
                   ].map((img, idx) => (
-                    <div key={idx} className="mb-8 flex-shrink-0">
+                    <div key={idx} className="mb-8 flex-shrink-0 w-96 h-80 relative overflow-hidden rounded-lg">
                       <img
                         src={img || "/placeholder.svg"}
                         alt="Poverty situation"
-                        className="w-96 h-80 object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-300"
+                        className="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-[filter] duration-300"
                       />
                     </div>
                   ))}
@@ -506,9 +543,8 @@ export default function Home() {
               <div className="hidden md:block">
                 <Marquee
                   reverse
-                  pauseOnHover
                   vertical
-                  className="[--duration:25s] group-hover:[--duration:60s] transition-all duration-500"
+                  className="[--duration:25s]"
                 >
                   {[
                     "/rural-poverty-philippines-agriculture.jpg",
@@ -516,11 +552,11 @@ export default function Home() {
                     "/poverty-philippines-health-care-access.jpg",
                     "/poverty-philippines-livelihood-programs.jpg",
                   ].map((img, idx) => (
-                    <div key={idx} className="mb-8 flex-shrink-0">
+                    <div key={idx} className="mb-8 flex-shrink-0 w-96 h-80 relative overflow-hidden rounded-lg">
                       <img
                         src={img || "/placeholder.svg"}
                         alt="Poverty situation"
-                        className="w-96 h-80 object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-300"
+                        className="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-[filter] duration-300"
                       />
                     </div>
                   ))}
@@ -530,17 +566,16 @@ export default function Home() {
               {/* Third column */}
               <div className="hidden lg:block">
                 <Marquee
-                  pauseOnHover
                   vertical
-                  className="[--duration:30s] group-hover:[--duration:60s] transition-all duration-500"
+                  className="[--duration:20s]"
                 >
                   {["/poverty-philippines-children-welfare.jpg", "/poverty-philippines-community-support.jpg"].map(
                     (img, idx) => (
-                      <div key={idx} className="mb-8 flex-shrink-0">
+                      <div key={idx} className="mb-8 flex-shrink-0 w-96 h-80 relative overflow-hidden rounded-lg">
                         <img
                           src={img || "/placeholder.svg"}
                           alt="Poverty situation"
-                          className="w-96 h-80 object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-300"
+                          className="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-[filter] duration-300"
                         />
                       </div>
                     ),
@@ -549,11 +584,17 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* DEVS SECTION */}
-      <section id="devs" className="mb-24 mt-24 relative z-10">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        id="devs"
+        className="mb-24 mt-24 relative z-10"
+      >
         <div className="mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-[540px]">
             <div className="flex justify-center">
@@ -594,10 +635,16 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* THE ISSUE SECTION */}
-      <section id="issue" className="py-24 relative z-10">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+        transition={{ duration: 0.8, delay: 1.3 }}
+        id="issue"
+        className="py-24 relative z-10"
+      >
         <div className="mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-[640px] mb-16">
             <div className="flex justify-center">
@@ -780,10 +827,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* RECOMMENDATIONS SECTION */}
-      <section id="recommendations" className="py-24 relative z-10">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+        transition={{ duration: 0.8, delay: 1.4 }}
+        id="recommendations"
+        className="py-24 relative z-10"
+      >
         <div className="mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-[540px] mb-16">
             <div className="flex justify-center">
@@ -877,10 +930,16 @@ export default function Home() {
 
         
         </div>
-      </section>
+      </motion.section>
 
       {/* SOURCES SECTION */}
-      <section id="sources" className="py-24 relative z-10">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+        transition={{ duration: 0.8, delay: 1.5 }}
+        id="sources"
+        className="py-24 relative z-10"
+      >
         <div className="mx-auto max-w-7xl px-4">
           <div className="mx-auto max-w-[540px] mb-16">
             <div className="flex justify-center">
@@ -916,10 +975,15 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 bg-white/5 backdrop-blur-xl">
+      <motion.footer
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+        transition={{ duration: 0.8, delay: 1.6 }}
+        className="relative z-10 border-t border-white/10 bg-white/5 backdrop-blur-xl"
+      >
         <div className="mx-auto max-w-7xl px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             {/* Brand Section */}
@@ -1010,7 +1074,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </motion.footer>
+    </motion.div>
+    </>
   )
 }

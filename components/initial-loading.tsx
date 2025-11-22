@@ -2,14 +2,19 @@
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 
-export default function Loading() {
+export function InitialLoading() {
   const [progress, setProgress] = useState(0)
+  const [isComplete, setIsComplete] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval)
+          // Wait a bit before hiding
+          setTimeout(() => {
+            setIsComplete(true)
+          }, 300)
           return 100
         }
         // Increment with slight variation to make it feel natural
@@ -21,8 +26,18 @@ export default function Loading() {
     return () => clearInterval(interval)
   }, [])
 
+  if (isComplete) {
+    return null
+  }
+
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isComplete ? 0 : 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black"
+    >
       {/* Animated background grid */}
       <div
         className="absolute inset-0 opacity-20"
@@ -116,29 +131,7 @@ export default function Loading() {
         </motion.div>
 
         {/* Animated dots */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex gap-2"
-        >
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-2 h-2 rounded-full bg-white/60"
-              animate={{
-                y: [0, -10, 0],
-                opacity: [0.6, 1, 0.6],
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                delay: i * 0.2,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </motion.div>
+        
 
         {/* Floating particles */}
         {[...Array(6)].map((_, i) => (
@@ -164,6 +157,7 @@ export default function Loading() {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
+
