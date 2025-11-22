@@ -93,6 +93,36 @@ export default function Home() {
     resilience: { label: "Resilience Target", color: "hsl(142 76% 36%)" }, // Green
   }
 
+  const householdData = [
+    { year: "2019", urban: 32.5, rural: 45.2, total: 38.8 },
+    { year: "2020", urban: 34.1, rural: 47.8, total: 40.9 },
+    { year: "2021", urban: 33.5, rural: 46.3, total: 39.9 },
+    { year: "2022", urban: 32.8, rural: 45.5, total: 39.1 },
+    { year: "2023", urban: 31.9, rural: 44.2, total: 38.0 },
+    { year: "2024", urban: 30.5, rural: 42.8, total: 36.6 },
+  ]
+
+  const householdChartConfig = {
+    urban: { label: "Urban Households", color: "hsl(217 91% 60%)" }, // Blue
+    rural: { label: "Rural Households", color: "hsl(142 76% 36%)" }, // Green
+    total: { label: "National Average", color: "hsl(38 92% 50%)" }, // Orange
+  }
+
+  const recommendationImpactData = [
+    { year: "2024", baseline: 16.4, withInterventions: 16.4, target: 12.0 },
+    { year: "2025", baseline: 16.8, withInterventions: 15.2, target: 11.5 },
+    { year: "2026", baseline: 17.1, withInterventions: 13.8, target: 11.0 },
+    { year: "2027", baseline: 17.3, withInterventions: 12.5, target: 10.5 },
+    { year: "2028", baseline: 17.5, withInterventions: 11.2, target: 10.0 },
+    { year: "2029", baseline: 17.7, withInterventions: 10.0, target: 9.5 },
+  ]
+
+  const recommendationChartConfig = {
+    baseline: { label: "Baseline Projection", color: "hsl(0 84% 60%)" }, // Red
+    withInterventions: { label: "With Interventions", color: "hsl(142 76% 36%)" }, // Green
+    target: { label: "Target Goal", color: "hsl(217 91% 60%)" }, // Blue
+  }
+
   const sourceEntries = [
     {
       title: "National Socioeconomic Pulse – Poverty Baseline 2024 (Dummy)",
@@ -428,7 +458,7 @@ export default function Home() {
                   <p className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] drop-shadow-[0_0_32px_rgba(255,255,255,0.3)]">
                     {h.numerical}
                   </p>
-                  <p className="text-sm text-center sm:text-base text-muted-foreground mt-3 sm:mt-1 px-4 sm:px-0">
+                  <p className="text-sm text-center sm:text-base text-muted-foreground mt-0 sm:mt-1 px-4 sm:px-0">
                     {h.data}
                   </p>
                 </div>
@@ -627,7 +657,7 @@ export default function Home() {
             )}
 
             {groupedMembers.map((row, idx) => (
-              <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
                 {row.map((member) => (
                   <TeamCard key={member.name} {...member} />
                 ))}
@@ -666,52 +696,87 @@ export default function Home() {
           </div>
 
           <div className="space-y-12">
-            <div className="">
-              <div className="space-y-6 grid grid-cols-2 gap-5">
-               <div className={`${blackinteractiveCardClasses} col-span-2`}>
-                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.3em] text-white/60">Poverty trajectory</p>
-                      <h3 className="text-2xl font-semibold text-white mt-1">Five-year synthetic outlook</h3>
-                    </div>
-                    <span className="text-sm text-white/60">Data: 2019–2024</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* First Chart */}
+              <div className={blackinteractiveCardClasses}>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Poverty trajectory</p>
+                    <h3 className="text-2xl font-semibold text-white mt-1">Five-year synthetic outlook</h3>
                   </div>
-
-                  <div className="mt-6 flex justify-center">
-                    <ChartContainer
-                      config={povertyChartConfig}
-                      className="h-[380px] w-full max-w-4xl rounded-2xl border border-white/10 bg-black/40 p-4"
-                    >
-                      <LineChart data={povertyTrendData}>
-                        <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
-                        <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
-                        <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
-                        <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
-                        <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
-                        <Line type="monotone" dataKey="extreme" stroke="var(--color-extreme)" strokeWidth={3} dot={false} />
-                        <Line type="monotone" dataKey="moderate" stroke="var(--color-moderate)" strokeWidth={2.5} dot={false} />
-                        <Line
-                          type="monotone"
-                          dataKey="resilience"
-                          stroke="var(--color-resilience)"
-                          strokeDasharray="6 4"
-                          strokeWidth={2}
-                          dot={false}
-                        />
-                      </LineChart>
-                    </ChartContainer>
-                  </div>
-
-                  <p className="mt-4 max-w-2xl flex items-center mx-auto text-md text-white/70">
-                    Even in this modeled scenario, extreme poverty only dips by 2.1 percentage points in five years—well
-                    short of the resilience target line. Moderate poverty closely mirrors the same slow progress.
-                  </p>
+                  <span className="text-sm text-white/60">Data: 2019–2024</span>
                 </div>
 
-               
+                <div className="mt-6 overflow-x-auto">
+                  <ChartContainer
+                    config={povertyChartConfig}
+                    className="h-[280px] sm:h-[320px] md:h-[350px] w-full min-w-[300px] rounded-2xl border border-white/10 bg-black/40 p-2 sm:p-4"
+                  >
+                    <LineChart data={povertyTrendData}>
+                      <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
+                      <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                      <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                      <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
+                      <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
+                      <Line type="monotone" dataKey="extreme" stroke="var(--color-extreme)" strokeWidth={3} dot={false} />
+                      <Line type="monotone" dataKey="moderate" stroke="var(--color-moderate)" strokeWidth={2.5} dot={false} />
+                      <Line
+                        type="monotone"
+                        dataKey="resilience"
+                        stroke="var(--color-resilience)"
+                        strokeDasharray="6 4"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </div>
+
+                <p className="mt-4 text-sm text-white/70">
+                  Even in this modeled scenario, extreme poverty only dips by 2.1 percentage points in five years—well
+                  short of the resilience target line.
+                </p>
               </div>
 
-             
+              {/* Second Chart */}
+              <div className={blackinteractiveCardClasses}>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Household distribution</p>
+                    <h3 className="text-2xl font-semibold text-white mt-1">Urban vs Rural poverty</h3>
+                  </div>
+                  <span className="text-sm text-white/60">Data: 2019–2024</span>
+                </div>
+
+                <div className="mt-6 overflow-x-auto">
+                  <ChartContainer
+                    config={householdChartConfig}
+                    className="h-[280px] sm:h-[320px] md:h-[350px] w-full min-w-[300px] rounded-2xl border border-white/10 bg-black/40 p-2 sm:p-4"
+                  >
+                    <LineChart data={householdData}>
+                      <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
+                      <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                      <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                      <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
+                      <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
+                      <Line type="monotone" dataKey="urban" stroke="var(--color-urban)" strokeWidth={3} dot={false} />
+                      <Line type="monotone" dataKey="rural" stroke="var(--color-rural)" strokeWidth={2.5} dot={false} />
+                      <Line
+                        type="monotone"
+                        dataKey="total"
+                        stroke="var(--color-total)"
+                        strokeDasharray="6 4"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </div>
+
+                <p className="mt-4 text-sm text-white/70">
+                  Rural households consistently show higher poverty rates compared to urban areas, with the gap narrowing slightly over the years.
+                </p>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
@@ -857,6 +922,48 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Impact Projection Chart */}
+          <div className="mb-16 max-w-6xl mx-auto">
+            <div className={blackinteractiveCardClasses}>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">Projected Impact</p>
+                  <h3 className="text-2xl font-semibold text-white mt-1">Expected Poverty Reduction with Interventions</h3>
+                </div>
+                <span className="text-sm text-white/60">Projection: 2024–2029</span>
+              </div>
+
+              <div className="mt-6">
+                <ChartContainer
+                  config={recommendationChartConfig}
+                  className="h-[400px] w-full rounded-2xl border border-white/10 bg-black/40 p-4"
+                >
+                  <LineChart data={recommendationImpactData}>
+                    <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
+                    <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                    <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
+                    <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
+                    <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
+                    <Line type="monotone" dataKey="baseline" stroke="var(--color-baseline)" strokeWidth={3} dot={false} />
+                    <Line type="monotone" dataKey="withInterventions" stroke="var(--color-withInterventions)" strokeWidth={3} dot={false} />
+                    <Line
+                      type="monotone"
+                      dataKey="target"
+                      stroke="var(--color-target)"
+                      strokeDasharray="6 4"
+                      strokeWidth={2.5}
+                      dot={false}
+                    />
+                  </LineChart>
+                </ChartContainer>
+              </div>
+
+              <p className="mt-4 text-sm text-white/70">
+                This projection shows the expected impact of implementing all recommended interventions. The baseline projection (red) represents the current trajectory without intervention, while the green line shows the projected reduction with full implementation of recommendations. The blue dashed line represents the target goal.
+              </p>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
               {
@@ -927,8 +1034,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-        
         </div>
       </motion.section>
 
