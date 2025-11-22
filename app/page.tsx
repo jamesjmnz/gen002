@@ -79,33 +79,25 @@ export default function Home() {
   ]
 
   const povertyTrendData = [
-    { year: "2019", extreme: 18.5, moderate: 27.1, resilience: 46 },
-    { year: "2020", extreme: 19.8, moderate: 28.4, resilience: 44 },
-    { year: "2021", extreme: 18.2, moderate: 26.3, resilience: 48 },
-    { year: "2022", extreme: 17.6, moderate: 24.9, resilience: 50 },
-    { year: "2023", extreme: 17.2, moderate: 24.2, resilience: 52 },
-    { year: "2024", extreme: 16.4, moderate: 23.1, resilience: 55 },
+    { year: "2018", rate: 21.1 },
+    { year: "2021", rate: 18.1 },
+    { year: "2023", rate: 18.1 },
+    { year: "2025", rate: 13.2 },
   ]
 
   const povertyChartConfig = {
-    extreme: { label: "Extreme Poverty", color: "hsl(0 84% 60%)" }, // Red
-    moderate: { label: "Moderate Poverty", color: "hsl(38 92% 50%)" }, // Orange/Amber
-    resilience: { label: "Resilience Target", color: "hsl(142 76% 36%)" }, // Green
+    rate: { label: "Poverty Rate (%)", color: "hsl(0 84% 60%)" }, // Red
+    target: { label: "2025 Target", color: "hsl(142 76% 36%)" }, // Green
   }
 
-  const householdData = [
-    { year: "2019", urban: 32.5, rural: 45.2, total: 38.8 },
-    { year: "2020", urban: 34.1, rural: 47.8, total: 40.9 },
-    { year: "2021", urban: 33.5, rural: 46.3, total: 39.9 },
-    { year: "2022", urban: 32.8, rural: 45.5, total: 39.1 },
-    { year: "2023", urban: 31.9, rural: 44.2, total: 38.0 },
-    { year: "2024", urban: 30.5, rural: 42.8, total: 36.6 },
+  const inflationData = [
+    { year: "2023", rate: 6.0 },
+    { year: "2024", rate: 3.6 },
+    { year: "2025", rate: 1.7 },
   ]
 
-  const householdChartConfig = {
-    urban: { label: "Urban Households", color: "hsl(217 91% 60%)" }, // Blue
-    rural: { label: "Rural Households", color: "hsl(142 76% 36%)" }, // Green
-    total: { label: "National Average", color: "hsl(38 92% 50%)" }, // Orange
+  const inflationChartConfig = {
+    rate: { label: "Inflation Rate (%)", color: "hsl(38 92% 50%)" }, // Orange/Amber
   }
 
   const recommendationImpactData = [
@@ -223,23 +215,23 @@ export default function Home() {
 
   const homeStats = [
     {
-      numerical: "25M",
-      data: "Filipinos live below the poverty line",
-      value: 25,
-      suffix: "M"
-    },
-    {
-      numerical: "46%",
-      data: "of Filipino Families consider themselves poor",
-      value: 46,
+      numerical: "55%",
+      data: "of Filipino families consider themselves poor as of Q2 2025",
+      value: 55,
       suffix: "%"
     },
     {
-      numerical: "7 out of 10",
-      data: "poor Filipinos live in rural area",
-      value: 7,
-      suffix: " out of 10",
-      isFraction: true
+      numerical: "₱12,323",
+      data: "monthly poverty threshold for a family of five",
+      value: 12323,
+      suffix: "",
+      isCurrency: true
+    },
+    {
+      numerical: "1.7%",
+      data: "national inflation rate as of October 2025",
+      value: 1.7,
+      suffix: "%"
     }
   ]
 
@@ -459,7 +451,7 @@ export default function Home() {
       {/* HOME SECTION */}
       <section id="home" className="relative z-10 overflow-hidden min-h-screen flex flex-col">
         <div className="container mx-auto px-4 py-24 sm:py-32 relative z-10 flex-1 flex flex-col">
-          <div className="mx-auto max-w-4xl text-center flex-1 flex flex-col justify-center">
+          <div className="mx-auto max-w-4xl text-center flex-1 flex flex-col justify-center overflow-visible">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
@@ -468,7 +460,7 @@ export default function Home() {
             >
               <Badge variant="default" className="inline-flex bg-white/80 items-center gap-2 px-4 py-2 text-sm">
                 <Sparkles className="h-4 w-4" />
-                Understanding poverty in the Philippines
+                Poverty & Inflation in the Philippines
               </Badge>
             </motion.div>
 
@@ -476,10 +468,10 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="mb-8"
+              className="mb-4 px-4 sm:px-6 md:px-8 overflow-visible"
             >
-              <h1 id="main-title"className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-4xl font-semibold tracking-tighter text-transparent md:text-[54px] md:leading-[60px] lg:text-7xl sm:text-6xl relative z-10">
-                Breaking the <strong>cycle</strong> <br /> of <strong className="border-b text-white/70 border-b-2 border-white/80 p-2">poverty</strong>
+              <h1 id="main-title" className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-4xl sm:text-5xl md:text-[54px] md:leading-[1.2] lg:text-7xl lg:leading-[1.2] font-bold tracking-tighter text-transparent relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.15)] [text-shadow:0_0_12px_rgba(255,255,255,0.1)] leading-tight sm:leading-normal">
+                Rising Costs, Rising <br /> <strong>Struggles</strong>
               </h1>
             </motion.div>
 
@@ -487,10 +479,18 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="mx-auto mb-12 max-w-xl text-xl text-muted-foreground"
+              className="mx-auto mb-8 max-w-xl text-base sm:text-lg md:text-xl from-foreground/70 via-foreground/80 to-foreground/70 dark:from-muted-foreground/60 dark:via-foreground/80 dark:to-muted-foreground/60 bg-gradient-to-r bg-clip-text text-transparent font-medium drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] [text-shadow:0_0_10px_rgba(255,255,255,0.1)]"
             >
-              A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and
-              actionable recommendations for sustainable change.
+              Understanding how increasing prices continue to push Filipino families into deeper poverty.
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+              transition={{ duration: 0.6, delay: 0.75 }}
+              className="mx-auto mb-12 max-w-2xl text-sm sm:text-base md:text-base text-muted-foreground/90 leading-relaxed"
+            >
+              Poverty remains one of the most urgent issues in the Philippines. The challenge has intensified because of inflation—the steady rise of prices of basic goods such as food, transportation, fuel, and utilities. Millions of Filipinos feel the impact, especially those with low and fixed incomes.
             </motion.p>
 
             <motion.div  
@@ -500,11 +500,21 @@ export default function Home() {
               className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 md:gap-8 mt-8"
             >
               {homeStats.map((h, index) => {
-                const displayValue = hasCounted || countedStats[index] > 0 
-                  ? h.isFraction 
-                    ? `${Math.floor(countedStats[index])}${h.suffix}`
-                    : `${Math.floor(countedStats[index])}${h.suffix}`
-                  : "0" + (h.suffix || "")
+                let displayValue = "0" + (h.suffix || "")
+                
+                if (hasCounted || countedStats[index] > 0) {
+                  if (h.isCurrency) {
+                    displayValue = `₱${Math.floor(countedStats[index]).toLocaleString()}${h.suffix}`
+                  } else if (h.suffix === "%" && h.value < 10) {
+                    // For decimal percentages like 1.7%
+                    displayValue = `${countedStats[index].toFixed(1)}${h.suffix}`
+                  } else if (h.suffix === "%") {
+                    // For whole number percentages like 55%
+                    displayValue = `${Math.floor(countedStats[index])}${h.suffix}`
+                  } else {
+                    displayValue = `${Math.floor(countedStats[index])}${h.suffix}`
+                  }
+                }
                 
                 return (
                   <div key={index} className="text-center sm:text-left">
@@ -513,7 +523,7 @@ export default function Home() {
                       initial={{ scale: 1.1, opacity: 0.8 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.2 }}
-                      className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] drop-shadow-[0_0_32px_rgba(255,255,255,0.3)]"
+                      className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] [text-shadow:0_0_30px_rgba(255,255,255,0.4)]"
                     >
                       {displayValue}
                     </motion.p>
@@ -747,24 +757,35 @@ export default function Home() {
               </button>
             </div>
             <h2 className="from-foreground/60 via-foreground to-foreground/60 dark:from-muted-foreground/55 dark:via-foreground dark:to-muted-foreground/55 mt-5 bg-gradient-to-r bg-clip-text text-center text-4xl font-semibold tracking-tighter text-transparent md:text-[54px] md:leading-[60px] relative z-10">
-              The Issue: Understanding Poverty in the Philippines
+              Poverty in the Philippines and Its Connection to Inflation
             </h2>
 
             <p className="mt-5 relative z-10 text-center text-lg text-white/85">
-              Analyze and discuss different viewpoints about the crisis on this page. Bullet points and bold callouts keep the complexity readable.
+              Understanding how poverty and inflation affect millions of Filipino families, and exploring different perspectives on the issue.
             </p>
           </div>
 
           <div className="space-y-12">
+            {/* Understanding Poverty Section */}
+            <div className={blackinteractiveCardClasses}>
+              <h3 className="text-2xl font-semibold text-white mb-4">1. Understanding Poverty in the Philippines</h3>
+              <p className="text-white/80 mb-4 leading-relaxed">
+                Poverty means the inability of individuals or families to meet basic needs such as food, shelter, healthcare, and education.
+              </p>
+              <p className="text-white/80 leading-relaxed">
+                As of 2023, <strong className="text-white">18.1% of Filipinos—around 19 million people—live below the poverty line</strong>. Despite improvements, many families remain vulnerable due to high living costs.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* First Chart */}
+              {/* First Chart - Poverty Rate */}
               <div className={blackinteractiveCardClasses}>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Poverty trajectory</p>
-                    <h3 className="text-2xl font-semibold text-white mt-1">Five-year synthetic outlook</h3>
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Poverty Rate</p>
+                    <h3 className="text-2xl font-semibold text-white mt-1">Poverty Rate in the Philippines (2018–2025)</h3>
                   </div>
-                  <span className="text-sm text-white/60">Data: 2019–2024</span>
+                  <span className="text-sm text-white/60">Data: 2018–2025</span>
                 </div>
 
                 <div className="mt-6 overflow-x-auto">
@@ -778,173 +799,130 @@ export default function Home() {
                       <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
                       <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
                       <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
-                      <Line type="monotone" dataKey="extreme" stroke="var(--color-extreme)" strokeWidth={3} dot={false} />
-                      <Line type="monotone" dataKey="moderate" stroke="var(--color-moderate)" strokeWidth={2.5} dot={false} />
-                      <Line
-                        type="monotone"
-                        dataKey="resilience"
-                        stroke="var(--color-resilience)"
-                        strokeDasharray="6 4"
-                        strokeWidth={2}
-                        dot={false}
-                      />
+                      <Line type="monotone" dataKey="rate" stroke="var(--color-rate)" strokeWidth={3} dot={{ r: 5 }} />
                     </LineChart>
                   </ChartContainer>
                 </div>
 
                 <p className="mt-4 text-sm text-white/70">
-                  Even in this modeled scenario, extreme poverty only dips by 2.1 percentage points in five years—well
-                  short of the resilience target line.
+                  The poverty rate steadily decreased from 2018 to 2021, but improvement slowed afterward. The 2025 value represents the national government's target of lowering poverty to 13.2%. However, rising inflation threatens this goal by increasing the cost of basic goods and services.
                 </p>
               </div>
 
-              {/* Second Chart */}
+              {/* Second Chart - Inflation Trend */}
               <div className={blackinteractiveCardClasses}>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Household distribution</p>
-                    <h3 className="text-2xl font-semibold text-white mt-1">Urban vs Rural poverty</h3>
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/60">Inflation Trend</p>
+                    <h3 className="text-2xl font-semibold text-white mt-1">Inflation Trend in the Philippines (2023–2025)</h3>
                   </div>
-                  <span className="text-sm text-white/60">Data: 2019–2024</span>
+                  <span className="text-sm text-white/60">Data: 2023–2025</span>
                 </div>
 
                 <div className="mt-6 overflow-x-auto">
                   <ChartContainer
-                    config={householdChartConfig}
+                    config={inflationChartConfig}
                     className="h-[280px] sm:h-[320px] md:h-[350px] w-full min-w-[300px] rounded-2xl border border-white/10 bg-black/40 p-2 sm:p-4"
                   >
-                    <LineChart data={householdData}>
+                    <LineChart data={inflationData}>
                       <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" />
                       <XAxis dataKey="year" stroke="#d4d4d8" tickLine={false} axisLine={false} />
                       <YAxis stroke="#d4d4d8" tickLine={false} axisLine={false} />
                       <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
                       <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
-                      <Line type="monotone" dataKey="urban" stroke="var(--color-urban)" strokeWidth={3} dot={false} />
-                      <Line type="monotone" dataKey="rural" stroke="var(--color-rural)" strokeWidth={2.5} dot={false} />
-                      <Line
-                        type="monotone"
-                        dataKey="total"
-                        stroke="var(--color-total)"
-                        strokeDasharray="6 4"
-                        strokeWidth={2}
-                        dot={false}
-                      />
+                      <Line type="monotone" dataKey="rate" stroke="var(--color-rate)" strokeWidth={3} dot={{ r: 5 }} />
                     </LineChart>
                   </ChartContainer>
                 </div>
 
                 <p className="mt-4 text-sm text-white/70">
-                  Rural households consistently show higher poverty rates compared to urban areas, with the gap narrowing slightly over the years.
+                  Inflation significantly decreased from 2023 to 2025, yet vulnerable families still felt its effects because essential items like rice, vegetables, and transportation continued to increase in price. Even with lower national inflation, everyday expenses remained high for millions of Filipinos.
                 </p>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-              <div className="space-y-6">
+            {/* How Inflation Worsens Poverty Section */}
+            <div className={blackinteractiveCardClasses}>
+              <h3 className="text-2xl font-semibold text-white mb-4">2. How Inflation Worsens Poverty</h3>
+              <p className="text-white/80 mb-4 leading-relaxed">
+                Inflation reduces the purchasing power of Filipino families. When prices rise faster than income, poor households suffer the most.
+              </p>
+              <h4 className="text-lg font-semibold text-white mt-6 mb-3">Impacts of Inflation on Low-Income Families:</h4>
+              <ul className="space-y-2 text-white/80">
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">•</span>
+                  <span>Food becomes expensive, forcing families to reduce meals.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">•</span>
+                  <span>Transport fare increases, affecting daily workers and students.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">•</span>
+                  <span>Wages cannot keep up with the cost of living.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">•</span>
+                  <span>Healthcare and education expenses rise, widening inequality.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">•</span>
+                  <span>Families are pushed into temporary loans and debt.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Different Viewpoints Section */}
+            <div className={blackinteractiveCardClasses}>
+              <h3 className="text-2xl font-semibold text-white mb-6">3. Different Viewpoints</h3>
+              
+              <div className="grid md:grid-cols-3 gap-6">
                 <div className={listCardClasses}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Economic Perspective</h3>
+                  <h4 className="text-lg font-bold text-foreground mb-4">Government Perspective</h4>
                   <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Income Inequality:</strong> Modeled income shares show the top decile capturing 47% of
-                        earnings, keeping the poverty curve elevated.
-                      </span>
+                      <span>Inflation was driven by global oil prices, El Niño, and supply-chain disruptions.</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Limited Job Opportunities:</strong> MetroPulse projections flag 2.4 million workers in
-                        precarious urban jobs with no savings.
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Rising Cost of Living:</strong> Household baskets jumped 11% in the HealthEquity stress
-                        test, erasing wage gains.
-                      </span>
+                      <span>Programs such as 4Ps, rice price caps, cash subsidies, and food security measures aim to protect poor families.</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className={listCardClasses}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Education Challenges</h3>
+                  <h4 className="text-lg font-bold text-foreground mb-4">Economic Experts' Perspective</h4>
                   <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Limited Access:</strong> CivicWell’s dummy model shows 38% of barangays without reliable
-                        secondary schooling.
-                      </span>
+                      <span>Inflation is worsened by low agricultural productivity.</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>School Dropouts:</strong> 1.3M learners could exit early to help with income gaps by 2025.
-                      </span>
+                      <span>Dependence on food imports increases vulnerability to global price shocks.</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Infrastructure Gaps:</strong> 42% of simulated rural schools still lack stable internet
-                        nodes and labs.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className={`${interactiveCardClasses}`}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Health & Welfare</h3>
-                  <ul className="space-y-3 text-muted-foreground text-sm">
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Healthcare Access:</strong> HealthEquity’s dummy survey shows 54% delaying treatment
-                        because of upfront costs.
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Malnutrition:</strong> 28% of households reported skipping meals in the welfare stress
-                        test.
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Living Conditions:</strong> 1 in 3 informal-settlement homes lacks safe water hookups.
-                      </span>
+                      <span>Long-term solutions require strengthening local agriculture and adjusting wages.</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className={`${interactiveCardClasses}`}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Social Factors</h3>
+                <div className={listCardClasses}>
+                  <h4 className="text-lg font-bold text-foreground mb-4">Citizens' Perspective</h4>
                   <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Generational Poverty:</strong> CommunityConnect’s resilience index shows only 22% of
-                        households moving up one income tier.
-                      </span>
+                      <span>Majority of Filipinos feel that their income is not enough due to price increases.</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Gender Inequality:</strong> Simulated labor force data place women’s underemployment at
-                        19%.
-                      </span>
+                      <span><strong>55% of families self-rated themselves as poor in 2025</strong> (SWS).</span>
                     </li>
                     <li className="flex gap-3">
                       <span className="text-white font-bold">•</span>
-                      <span>
-                        <strong>Child Labor:</strong> Crisis modeling suggests a potential 6% uptick in child labor
-                        during shocks without stronger cash aid.
-                      </span>
+                      <span>Families report skipping meals, taking multiple jobs, or borrowing money just to survive.</span>
                     </li>
                   </ul>
                 </div>
