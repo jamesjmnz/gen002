@@ -1011,15 +1011,24 @@ export default function Home() {
                 <span className="text-sm text-white/60">2025 Strategy</span>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-6 overflow-x-auto">
                 <ChartContainer
                   config={priorityChartConfig}
-                  className="h-[400px] w-full rounded-2xl border border-white/10 bg-black/40 p-4"
+                  className="h-[350px] sm:h-[400px] md:h-[450px] w-full min-w-[500px] sm:min-w-0 rounded-2xl border border-white/10 bg-black/40 p-2 sm:p-4"
                 >
                   <BarChart data={priorityData} layout="vertical">
                     <CartesianGrid strokeDasharray="4 4" stroke="#ffffff20" horizontal={true} vertical={false} />
                     <XAxis type="number" stroke="#d4d4d8" tickLine={false} axisLine={false} />
-                    <YAxis dataKey="policy" type="category" stroke="#d4d4d8" tickLine={false} axisLine={false} width={200} />
+                    <YAxis 
+                      dataKey="policy" 
+                      type="category" 
+                      stroke="#d4d4d8" 
+                      tickLine={false} 
+                      axisLine={false} 
+                      width={120}
+                      className="text-xs sm:text-sm"
+                      tick={{ fontSize: 10 }}
+                    />
                     <ChartTooltip content={<ChartTooltipContent className="text-white" />} />
                     <ChartLegend content={<ChartLegendContent className="text-xs text-white/70" />} />
                     <Bar dataKey="priority" fill="var(--color-priority)" radius={[0, 4, 4, 0]} />
