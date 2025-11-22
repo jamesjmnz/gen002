@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GEN 002 | Poverty - Breaking the Cycle",
     description: "A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and actionable recommendations for sustainable change.",
-    url: "https://gen002-poverty.vercel.app",
+    url: "https://poverty-gen002.vercel.app",
     siteName: "GEN 002 | Poverty",
     images: [
       {
-        url: "/poverty-situation-philippines-families.jpg",
+        url: "https://poverty-gen002.vercel.app/poverty-situation-philippines-families.jpg",
         width: 1200,
         height: 630,
         alt: "Poverty in the Philippines - Breaking the Cycle",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "GEN 002 | Poverty - Breaking the Cycle",
     description: "A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and actionable recommendations for sustainable change.",
-    images: ["/poverty-situation-philippines-families.jpg"],
+    images: ["https://poverty-gen002.vercel.app/poverty-situation-philippines-families.jpg"],
   },
-  metadataBase: new URL("https://gen002-poverty.vercel.app"),
+  metadataBase: new URL("https://poverty-gen002.vercel.app"),
 }
 
 export default function RootLayout({
