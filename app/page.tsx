@@ -224,17 +224,63 @@ export default function Home() {
   const homeStats = [
     {
       numerical: "25M",
-      data: "Filipinos live below the poverty line"
+      data: "Filipinos live below the poverty line",
+      value: 25,
+      suffix: "M"
     },
     {
       numerical: "46%",
-      data: "of Filipino Families consider themselves poor"
+      data: "of Filipino Families consider themselves poor",
+      value: 46,
+      suffix: "%"
     },
     {
       numerical: "7 out of 10",
-      data: "poor Filipinos live in rural area"
+      data: "poor Filipinos live in rural area",
+      value: 7,
+      suffix: " out of 10",
+      isFraction: true
     }
   ]
+
+  const [countedStats, setCountedStats] = useState(homeStats.map(() => 0))
+  const [hasCounted, setHasCounted] = useState(false)
+
+  useEffect(() => {
+    if (!isLoading && !hasCounted) {
+      const duration = 2000 // 2 seconds
+      const steps = 60
+      const interval = duration / steps
+      const intervals: NodeJS.Timeout[] = []
+
+      homeStats.forEach((stat, index) => {
+        let currentStep = 0
+        const increment = stat.value / steps
+
+        const counter = setInterval(() => {
+          currentStep++
+          setCountedStats((prev) => {
+            const newStats = [...prev]
+            if (currentStep >= steps) {
+              newStats[index] = stat.value
+              if (index === homeStats.length - 1) {
+                setHasCounted(true)
+              }
+            } else {
+              newStats[index] = Math.min(increment * currentStep, stat.value)
+            }
+            return newStats
+          })
+        }, interval)
+        
+        intervals.push(counter)
+      })
+
+      return () => {
+        intervals.forEach(interval => clearInterval(interval))
+      }
+    }
+  }, [isLoading, hasCounted])
 
   const leadMember = teamMembers[0]
   const restMembers = teamMembers.slice(1)
@@ -453,16 +499,30 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.8 }} 
               className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 md:gap-8 mt-8"
             >
-              {homeStats.map((h, index) => (
-                <div key={index} className="text-center sm:text-left">
-                  <p className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] drop-shadow-[0_0_32px_rgba(255,255,255,0.3)]">
-                    {h.numerical}
-                  </p>
-                  <p className="text-sm text-center sm:text-base text-muted-foreground mt-0 sm:mt-1 px-4 sm:px-0">
-                    {h.data}
-                  </p>
-                </div>
-              ))}
+              {homeStats.map((h, index) => {
+                const displayValue = hasCounted || countedStats[index] > 0 
+                  ? h.isFraction 
+                    ? `${Math.floor(countedStats[index])}${h.suffix}`
+                    : `${Math.floor(countedStats[index])}${h.suffix}`
+                  : "0" + (h.suffix || "")
+                
+                return (
+                  <div key={index} className="text-center sm:text-left">
+                    <motion.p
+                      key={countedStats[index]}
+                      initial={{ scale: 1.1, opacity: 0.8 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-3xl sm:text-2xl text-center md:text-3xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] drop-shadow-[0_0_32px_rgba(255,255,255,0.3)]"
+                    >
+                      {displayValue}
+                    </motion.p>
+                    <p className="text-sm text-center sm:text-base text-muted-foreground mt-0 sm:mt-1 px-4 sm:px-0">
+                      {h.data}
+                    </p>
+                  </div>
+                )
+              })}
             </motion.div>
 
             
