@@ -8,8 +8,31 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "GEN 002 | Poverty",
-  description: "A comprehensive analysis of poverty in the Philippines",
+  description: "A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and actionable recommendations for sustainable change.",
   generator: "v0.app",
+  openGraph: {
+    title: "GEN 002 | Poverty - Breaking the Cycle",
+    description: "A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and actionable recommendations for sustainable change.",
+    url: "https://gen002-poverty.vercel.app",
+    siteName: "GEN 002 | Poverty",
+    images: [
+      {
+        url: "/poverty-situation-philippines-families.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Poverty in the Philippines - Breaking the Cycle",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GEN 002 | Poverty - Breaking the Cycle",
+    description: "A comprehensive analysis of poverty in the Philippines, exploring root causes, current challenges, and actionable recommendations for sustainable change.",
+    images: ["/poverty-situation-philippines-families.jpg"],
+  },
+  metadataBase: new URL("https://gen002-poverty.vercel.app"),
 }
 
 export default function RootLayout({
