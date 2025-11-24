@@ -1,12 +1,15 @@
 "use client"
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles } from "lucide-react"
+import { TrendingUp } from "lucide-react"
 import { motion } from "framer-motion"
 import { Marquee } from "@/components/magicui/marquee"
 import { InitialLoading } from "@/components/initial-loading"
 import kenneth from "@/public/kenneth.png"
 import james from "@/public/james.png"
+import ynah from "@/public/ynah.png"
+import christian from "@/public/christian.jpg"
+import charles from "@/public/charles.png"
 
 import {
   ChartContainer,
@@ -154,56 +157,56 @@ export default function Home() {
 
   const teamMembers = [
     {
-      name: "James Jimenez",
-      role: "Research Lead",
+      name: "James Lebron D. Jimenez",
+      role: "Lead Developer",
       img: james.src,
       selfCare: "Morning yoga & meditation",
     },
     {
-      name: "Queen Ynah Suratos",
+      name: "Queen Ynah D. Suratos",
       role: "Data Analyst",
-      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=face",
+      img: ynah.src,
       selfCare: "Reading & hiking",
     },
     {
-      name: "Kenneth Peralta",
-      role: "Communications",
+      name: "Kenneth E. Peralta",
+      role: "Researcher",
       img: kenneth.src,
       selfCare: "Art & creative writing",
     },
     {
-      name: "Carlos Mendoza",
-      role: "Designer",
-      img: "https://images.unsplash.com/photo-1500648767791-0a1dd7228f2e?w=400&h=300&fit=crop&crop=face",
+      name: "Christian Emmanuel Moreno",
+      role: "Researcher",
+      img: christian.src,
       selfCare: "Photography & cooking",
     },
     {
-      name: "Lisa Wong",
-      role: "Developer",
-      img: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=300&fit=crop&crop=face",
+      name: "Charles Laurence Erasquin",
+      role: "Researcher",
+      img: charles.src,
       selfCare: "Gaming & music production",
     },
     {
-      name: "Miguel Torres",
+      name: "Xander Castro",
       role: "Researcher",
       img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop&crop=face",
       selfCare: "Fitness & volunteering",
     },
     {
-      name: "Sophie Kim",
-      role: "Project Manager",
+      name: "Daryl Narvasa",
+      role: "Researcher",
       img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=face",
       selfCare: "Journaling & cooking",
     },
     {
-      name: "Nina Valdez",
-      role: "Frontend Engineer",
+      name: "CJ Llarenas",
+      role: "Researcher",
       img: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=300&fit=crop&crop=face",
       selfCare: "Weekend pottery classes",
     },
     {
-      name: "Miguel Navarro",
-      role: "Data Scientist",
+      name: "Ronnie Rullan",
+      role: "Data Researcher",
       img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop&crop=face",
       selfCare: "Writing short stories",
     },
@@ -299,10 +302,16 @@ export default function Home() {
           alt={name}
           className="h-100 w-104 object-cover aspect-video grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex flex-col justify-end p-4">
-          <h3 className="text-white font-bold text-lg">{name}</h3>
-          <p className="text-white/80 text-sm">{role}</p>
-          <p className="text-white/70 text-xs mt-2">{selfCare}</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 group-hover:from-black/70 group-hover:via-black/40 group-hover:to-black/20 transition-all duration-300 flex flex-col justify-end p-4">
+          <h3 className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-white/90 via-white to-white/90 group-hover:from-white group-hover:via-white group-hover:to-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.5)] [text-shadow:0_0_8px_rgba(255,255,255,0.4)] transition-all duration-300">
+            {name}
+          </h3>
+          <p className="text-gray-200/90 text-sm font-medium mt-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] group-hover:text-gray-100 transition-colors duration-300">
+            {role}
+          </p>
+          <p className="text-gray-300/80 text-xs mt-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] group-hover:text-gray-200/90 transition-colors duration-300">
+            {selfCare}
+          </p>
         </div>
       </div>
     )
@@ -355,8 +364,15 @@ export default function Home() {
           href="#home"
           onClick={(e) => handleSmoothScroll(e, "#home")}
         >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center font-bold text-black text-sm">
-            P
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black">
+              <line x1="3" y1="18" x2="3" y2="12"></line>
+              <line x1="7" y1="18" x2="7" y2="8"></line>
+              <line x1="11" y1="18" x2="11" y2="16"></line>
+              <line x1="15" y1="18" x2="15" y2="14"></line>
+              <line x1="19" y1="18" x2="19" y2="10"></line>
+              <line x1="3" y1="18" x2="19" y2="18"></line>
+            </svg>
           </div>
         </a>
 
@@ -391,8 +407,15 @@ export default function Home() {
         className="sticky top-4 z-[9999] mx-4 flex w-auto flex-row items-center justify-between rounded-full bg-background/80 backdrop-blur-md border border-white/10 shadow-lg md:hidden px-4 py-3 transition-all duration-300"
       >
         <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")} className="flex items-center justify-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center font-bold text-black text-sm">
-            P
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black">
+              <line x1="3" y1="18" x2="3" y2="12"></line>
+              <line x1="7" y1="18" x2="7" y2="8"></line>
+              <line x1="11" y1="18" x2="11" y2="16"></line>
+              <line x1="15" y1="18" x2="15" y2="14"></line>
+              <line x1="19" y1="18" x2="19" y2="10"></line>
+              <line x1="3" y1="18" x2="19" y2="18"></line>
+            </svg>
           </div>
         </a>
 
@@ -461,7 +484,7 @@ export default function Home() {
               className="mb-8"
             >
               <Badge variant="default" className="inline-flex bg-white/80 items-center gap-2 px-4 py-2 text-sm">
-                <Sparkles className="h-4 w-4" />
+                <TrendingUp className="h-4 w-4" />
                 Poverty & Inflation in the Philippines
               </Badge>
             </motion.div>
@@ -519,7 +542,7 @@ export default function Home() {
                 }
                 
                 return (
-                  <div key={index} className="text-center sm:text-left">
+                  <div key={index} className="text-center  w-full sm:text-left">
                     <motion.p
                       key={countedStats[index]}
                       initial={{ scale: 1.1, opacity: 0.8 }}
@@ -529,9 +552,11 @@ export default function Home() {
                     >
                       {displayValue}
                     </motion.p>
-                    <p className="text-sm text-center sm:text-base text-muted-foreground mt-0 sm:mt-1 px-4 sm:px-0">
+                    <div className="items-center w-full">
+                    <p className="text-sm text-center sm:text-base items-center max-w-xs mx-auto  text-muted-foreground mt-0 sm:mt-1 px-4 sm:px-0">
                       {h.data}
                     </p>
+                    </div>
                   </div>
                 )
               })}
@@ -1217,8 +1242,15 @@ export default function Home() {
             {/* Brand Section */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center font-bold text-black text-lg">
-                  P
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black">
+                    <line x1="3" y1="18" x2="3" y2="12"></line>
+                    <line x1="7" y1="18" x2="7" y2="8"></line>
+                    <line x1="11" y1="18" x2="11" y2="16"></line>
+                    <line x1="15" y1="18" x2="15" y2="14"></line>
+                    <line x1="19" y1="18" x2="19" y2="10"></line>
+                    <line x1="3" y1="18" x2="19" y2="18"></line>
+                  </svg>
                 </div>
                 <span className="text-xl font-semibold text-white">Poverty Analysis</span>
               </div>
