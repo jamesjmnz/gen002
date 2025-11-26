@@ -10,6 +10,10 @@ import james from "@/public/james.png"
 import ynah from "@/public/ynah.png"
 import christian from "@/public/christian.jpg"
 import charles from "@/public/charles.png"
+import xander from "@/public/xander.png"
+import daryl from "@/public/daryl.png"
+import ronnie from "@/public/ronnie.png"
+import cj from "@/public/cj.png"
 
 import {
   ChartContainer,
@@ -189,25 +193,25 @@ export default function Home() {
     {
       name: "Xander Castro",
       role: "Researcher",
-      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop&crop=face",
+      img: xander.src,
       selfCare: "Fitness & volunteering",
     },
     {
       name: "Daryl Narvasa",
       role: "Researcher",
-      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&crop=face",
+      img: daryl.src,
       selfCare: "Journaling & cooking",
     },
     {
       name: "CJ Llarenas",
       role: "Researcher",
-      img: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=300&fit=crop&crop=face",
+      img: cj.src,
       selfCare: "Weekend pottery classes",
     },
     {
       name: "Ronnie Rullan",
       role: "Data Researcher",
-      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop&crop=face",
+      img: ronnie.src,
       selfCare: "Writing short stories",
     },
     {
@@ -281,10 +285,11 @@ export default function Home() {
 
   const leadMember = teamMembers[0]
   const restMembers = teamMembers.slice(1)
-  const groupedMembers = []
-  for (let i = 0; i < restMembers.length; i += 3) {
-    groupedMembers.push(restMembers.slice(i, i + 3))
-  }
+  // Layout: 1, 3, 3, 2
+  const row1 = [leadMember] // 1 card (centered)
+  const row2 = restMembers.slice(0, 3) // 3 cards
+  const row3 = restMembers.slice(3, 6) // 3 cards
+  const row4 = restMembers.slice(6, 8) // 2 cards (centered)
 
   const interactiveCardClasses =
     "group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:border-white/30 hover:bg-white/10 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
@@ -743,23 +748,45 @@ export default function Home() {
           </div>
 
           <div className="my-16 space-y-12">
-            {leadMember && (
+            {/* Row 1: 1 card (centered) */}
+            {row1.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
                 <div className="hidden md:block" />
                 <div className="w-full max-w-sm md:max-w-none">
-                  <TeamCard {...leadMember} />
+                  <TeamCard {...row1[0]} />
                 </div>
                 <div className="hidden md:block" />
               </div>
             )}
 
-            {groupedMembers.map((row, idx) => (
-              <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-                {row.map((member) => (
+            {/* Row 2: 3 cards */}
+            {row2.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
+                {row2.map((member) => (
                   <TeamCard key={member.name} {...member} />
                 ))}
               </div>
-            ))}
+            )}
+
+            {/* Row 3: 3 cards */}
+            {row3.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
+                {row3.map((member) => (
+                  <TeamCard key={member.name} {...member} />
+                ))}
+              </div>
+            )}
+
+            {/* Row 4: 2 cards (centered) */}
+            {row4.length > 0 && (
+              <div className="flex justify-center items-center gap-6 flex-wrap">
+                {row4.map((member) => (
+                  <div key={member.name} className="w-full max-w-sm">
+                    <TeamCard {...member} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </motion.section>
