@@ -79,7 +79,7 @@ export default function Home() {
 
   const navItems = [
     { label: "Home", href: "#home", id: "home" },
-    { label: "Devs", href: "#devs", id: "devs" },
+    { label: "Our Team", href: "#devs", id: "devs" },
     { label: "The Issue", href: "#issue", id: "issue" },
     { label: "Recommendations", href: "#recommendations", id: "recommendations" },
     { label: "Sources", href: "#sources", id: "sources" },
